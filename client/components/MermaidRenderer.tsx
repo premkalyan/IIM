@@ -165,8 +165,24 @@ export default function MermaidRenderer({ chart, theme = "default" }: Props) {
         <button onClick={downloadPNG} className="rounded-md bg-muted px-3 py-1 text-sm">Download PNG</button>
         <button onClick={copyToClipboard} className="rounded-md bg-muted px-3 py-1 text-sm">Copy Mermaid</button>
       </div>
-      <div ref={containerRef} />
-      {!svg && <div className="text-sm text-muted-foreground">Rendering diagram...</div>}
+      <div className="flex gap-4 items-start">
+        <div className="flex-1">
+          <div ref={containerRef} />
+          {!svg && <div className="text-sm text-muted-foreground">Rendering diagram...</div>}
+        </div>
+        <div className="w-64">
+          <div className="rounded-md border p-3 bg-card">
+            <div className="flex flex-col gap-2">
+              <button onClick={() => { setShowImage((s) => !s); if (!pngDataUrl) createPngPreview(); }} className="rounded-md bg-muted px-3 py-1 text-sm">{showImage ? "Show SVG" : "Show PNG"}</button>
+              <button onClick={copyEmbedHtml} className="rounded-md bg-muted px-3 py-1 text-sm">Copy EMBED HTML</button>
+              <button onClick={() => { navigator.clipboard.writeText(svg || ""); }} className="rounded-md bg-muted px-3 py-1 text-sm">Copy SVG source</button>
+            </div>
+            {showImage && pngDataUrl && (
+              <img src={pngDataUrl} alt="diagram" className="mt-3 w-full rounded" />
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
