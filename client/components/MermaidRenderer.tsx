@@ -89,37 +89,70 @@ export default function MermaidRenderer({ chart, theme = "default" }: Props) {
 
   const downloadPNG = async () => {
     if (!svg) return;
-    const svgStr = svg;
-    const img = new Image();
-    const svgBlob = new Blob([svgStr], { type: "image/svg+xml;charset=utf-8" });
-    const url = URL.createObjectURL(svgBlob);
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) return;
-      ctx.fillStyle = "white";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0);
-      const png = canvas.toDataURL("image/png");
-      const a = document.createElement("a");
-      a.href = png;
-      a.download = "architecture.png";
-      a.click();
-      URL.revokeObjectURL(url);
-    };
-    img.onerror = (e) => {
-      console.error("Image load error", e);
-      URL.revokeObjectURL(url);
-    };
-    img.src = url;
+    const data = await createPngDataUrl(svg);
+    if (!data) return;
+    const a = document.createElement("a");
+    a.href = data;
+    a.download = "architecture.png";
+    a.click();
+  };
+
+  const createPngDataUrl = async (svgStr: string) => {
+    try {
+      const svgBlob = new Blob([svgStr], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(svgBlob);
+      const img = new Image();
+      return await new Promise<string | null>((resolve) => {
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.width || 1200;
+          canvas.height = img.height || 600;
+          const ctx = canvas.getContext("2d");
+          if (!ctx) return resolve(null);
+          ctx.fillStyle = "white";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0);
+          const png = canvas.toDataURL("image/png");
+          URL.revokeObjectURL(url);
+          resolve(png);
+        };
+        img.onerror = (e) => {
+          console.error("Image load error", e);
+          URL.revokeObjectURL(url);
+          resolve(null);
+        };
+        img.src = url;
+      });
+    } catch (e) {
+      console.error(e);
+      return null;
+    }
+  };
+
+  const createPngPreview = async () => {
+    if (!svg) return;
+    const data = await createPngDataUrl(svg);
+    if (data) setPngDataUrl(data);
   };
 
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(chart);
       // quick visual feedback could be added
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const copyEmbedHtml = async () => {
+    if (!pngDataUrl && svg) {
+      const data = await createPngDataUrl(svg);
+      if (data) setPngDataUrl(data);
+    }
+    const imgSrc = pngDataUrl || (svg ? `data:image/svg+xml;utf8,${encodeURIComponent(svg)}` : "");
+    const html = `<img src=\"${imgSrc}\" alt=\"Architecture Diagram\" style=\"max-width:100%;height:auto\"/>`;
+    try {
+      await navigator.clipboard.writeText(html);
     } catch (e) {
       console.error(e);
     }
