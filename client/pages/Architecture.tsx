@@ -52,6 +52,29 @@ const mermaidDiagram = `flowchart LR
 `;
 
 export default function Architecture() {
+  const STORAGE_KEY = "architecture_mermaid_v1";
+  const defaultDiagram = mermaidDiagram;
+  const [diagram, setDiagram] = useState(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      return stored || defaultDiagram;
+    } catch {
+      return defaultDiagram;
+    }
+  });
+  const [draft, setDraft] = useState(diagram);
+  const [liveUpdate, setLiveUpdate] = useState(true);
+
+  useEffect(() => {
+    setDraft(diagram);
+  }, [diagram]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, diagram);
+    } catch {}
+  }, [diagram]);
+
   return (
     <div className="grid gap-6">
       <div>
@@ -62,21 +85,52 @@ export default function Architecture() {
       <div className="rounded-lg border bg-card p-6">
         <div className="overflow-auto">
           {/* Mermaid diagram renderer */}
-          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-          {/* @ts-ignore */}
-          <div id="mermaid-root" className="prose">
-            {/* Mermaid renderer will mount here via component below */}
-          </div>
+          <MermaidRenderer chart={liveUpdate ? draft : diagram} theme={document.documentElement.classList.contains("dark") ? "dark" : "default"} />
         </div>
 
         <div className="mt-6">
-          <div className="grid gap-4">
-            <MermaidRenderer chart={mermaidDiagram} theme={document.documentElement.classList.contains("dark") ? "dark" : "default"} />
-            <div>
-              <h4 className="font-semibold">Mermaid source</h4>
-              <pre className="rounded-md border bg-muted p-3 overflow-auto text-sm"><code>{mermaidDiagram}</code></pre>
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <label className="text-sm text-muted-foreground">Diagram controls</label>
+            </div>
+            <div className="flex items-center gap-2">
+              <button className="rounded-md bg-muted px-3 py-1 text-sm" onClick={() => { setLiveUpdate((v) => !v); }}>{liveUpdate ? "Live" : "Manual"}</button>
+              <button className="rounded-md bg-muted px-3 py-1 text-sm" onClick={() => { setDraft(defaultDiagram); setLiveUpdate(true); }}>Reset to default</button>
             </div>
           </div>
+
+          <details className="rounded-md border bg-muted/50 p-3" id="mermaid-editor-details">
+            <summary className="cursor-pointer py-1 font-medium">Mermaid source (click to expand)</summary>
+            <div className="mt-3 grid gap-2">
+              <label className="text-xs text-muted-foreground">Edit diagram (business users: collapsed by default)</label>
+              <textarea
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                rows={14}
+                className="w-full rounded-md border bg-background p-3 text-sm font-mono"
+              />
+              <div className="flex items-center gap-2">
+                <button
+                  className="rounded-md bg-primary px-3 py-1 text-sm text-primary-foreground"
+                  onClick={() => { setDiagram(draft); }}
+                >
+                  Apply & Save
+                </button>
+                <button
+                  className="rounded-md bg-muted px-3 py-1 text-sm"
+                  onClick={() => { setDraft(diagram); }}
+                >
+                  Revert
+                </button>
+                <button
+                  className="rounded-md bg-muted px-3 py-1 text-sm"
+                  onClick={() => { navigator.clipboard.writeText(draft); }}
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
+          </details>
 
           <Tabs defaultValue="overview">
             <TabsList>
