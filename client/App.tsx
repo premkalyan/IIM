@@ -12,6 +12,7 @@ import Knowledge from "./pages/Knowledge";
 import Playbooks from "./pages/Playbooks";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
+import Architecture from "./pages/Architecture";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
