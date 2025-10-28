@@ -8,7 +8,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppLayout from "@/components/layout/AppLayout";
 import Index from "./pages/Index";
 import Incidents from "./pages/Incidents";
-import Placeholder from "./pages/Placeholder";
+import Knowledge from "./pages/Knowledge";
+import Playbooks from "./pages/Playbooks";
+import Analytics from "./pages/Analytics";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
