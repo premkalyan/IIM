@@ -1,0 +1,208 @@
+import { categorizeIncident, predictEscalation, type Category } from "@/lib/ai";
+
+export type Severity = "Low" | "Medium" | "High" | "Critical";
+export type State = "New" | "In Progress" | "Resolved" | "Closed";
+
+export interface Incident {
+  id: string;
+  number: string;
+  title: string;
+  description: string;
+  priority: number; // 1-5
+  severity: Severity;
+  category: Category;
+  state: State;
+  assigned_to?: string;
+  resolutionNotes?: string;
+  confidenceScore: number; // 0-1
+  escalationProbability: number; // 0-1
+  createdAt: string;
+  updatedAt: string;
+}
+
+const STORAGE_KEY = "hanover_incidents_v1";
+
+const listeners = new Set<() => void>();
+const emit = () => listeners.forEach((l) => l());
+export const subscribe = (fn: () => void) => {
+  listeners.add(fn);
+  return () => listeners.delete(fn);
+};
+
+function read(): Incident[] {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return [];
+  try {
+    return JSON.parse(raw) as Incident[];
+  } catch {
+    return [];
+  }
+}
+
+function write(items: Incident[]) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  emit();
+}
+
+function seedIfEmpty() {
+  const items = read();
+  if (items.length) return;
+  const now = Date.now();
+  const seedData: Omit<Incident, "id">[] = [
+    {
+      number: "INC-1001",
+      title: "API latency spike in Claims service",
+      description:
+        "Users report slow responses on claims submission. Error rate increasing after deploy.",
+      priority: 2,
+      severity: "High",
+      category: "Application",
+      state: "In Progress",
+      assigned_to: "A. Patel",
+      resolutionNotes: "",
+      confidenceScore: 0.78,
+      escalationProbability: 0, // filled below
+      createdAt: new Date(now - 36e5 * 5).toISOString(),
+      updatedAt: new Date(now - 36e5 * 1).toISOString(),
+    },
+    {
+      number: "INC-1002",
+      title: "Intermittent DB deadlocks in Policy service",
+      description: "Deadlocks observed during peak hours, customer impact reported.",
+      priority: 1,
+      severity: "Critical",
+      category: "Database",
+      state: "New",
+      assigned_to: "J. Chen",
+      resolutionNotes: "",
+      confidenceScore: 0.82,
+      escalationProbability: 0,
+      createdAt: new Date(now - 36e5 * 2).toISOString(),
+      updatedAt: new Date(now - 36e5 * 1.5).toISOString(),
+    },
+    {
+      number: "INC-1003",
+      title: "VPN connectivity failures for remote adjusters",
+      description: "Packet loss and DNS failures reported from East region",
+      priority: 3,
+      severity: "Medium",
+      category: "Network",
+      state: "New",
+      assigned_to: "M. Smith",
+      resolutionNotes: "",
+      confidenceScore: 0.7,
+      escalationProbability: 0,
+      createdAt: new Date(now - 36e5 * 30).toISOString(),
+      updatedAt: new Date(now - 36e5 * 28).toISOString(),
+    },
+    {
+      number: "INC-1004",
+      title: "SAML SSO login failures for underwriting portal",
+      description: "Multiple users unable to login; IdP status shows partial outage",
+      priority: 2,
+      severity: "High",
+      category: "Access",
+      state: "In Progress",
+      assigned_to: "R. Davis",
+      resolutionNotes: "",
+      confidenceScore: 0.76,
+      escalationProbability: 0,
+      createdAt: new Date(now - 36e5 * 8).toISOString(),
+      updatedAt: new Date(now - 36e5 * 3).toISOString(),
+    },
+  ];
+
+  const seeded = seedData.map((d, i) => {
+    const id = crypto.randomUUID();
+    const prob = predictEscalation({
+      id,
+      title: d.title,
+      description: d.description,
+      category: d.category,
+      priority: d.priority,
+      severity: d.severity,
+      state: d.state,
+      createdAt: d.createdAt,
+      updatedAt: d.updatedAt,
+    });
+    return { ...d, id, escalationProbability: prob } as Incident;
+  });
+  write(seeded);
+}
+
+seedIfEmpty();
+
+export function listIncidents(): Incident[] {
+  return read().sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+  );
+}
+
+export function getIncident(id: string): Incident | undefined {
+  return read().find((i) => i.id === id);
+}
+
+export function createIncident(partial: Omit<Incident, "id" | "number" | "confidenceScore" | "escalationProbability" | "createdAt" | "updatedAt"> & { number?: string }): Incident {
+  const items = read();
+  const number =
+    partial.number || `INC-${1000 + Math.floor(Math.random() * 9000)}`;
+  const ts = new Date().toISOString();
+  const id = crypto.randomUUID();
+  const inferred = categorizeIncident(`${partial.title} ${partial.description}`);
+  const base = {
+    id,
+    number,
+    confidenceScore: inferred.confidence,
+    category: partial.category || inferred.category,
+    createdAt: ts,
+    updatedAt: ts,
+  } as const;
+  const prob = predictEscalation({
+    id,
+    title: partial.title,
+    description: partial.description,
+    category: base.category,
+    priority: partial.priority,
+    severity: partial.severity,
+    state: partial.state,
+    createdAt: base.createdAt,
+    updatedAt: base.updatedAt,
+  });
+  const item: Incident = { ...partial, ...base, escalationProbability: prob };
+  write([item, ...items]);
+  return item;
+}
+
+export function updateIncident(
+  id: string,
+  updates: Partial<Omit<Incident, "id" | "number" | "createdAt">>,
+): Incident | undefined {
+  const items = read();
+  const idx = items.findIndex((i) => i.id === id);
+  if (idx === -1) return undefined;
+  const prev = items[idx];
+  const merged: Incident = {
+    ...prev,
+    ...updates,
+    updatedAt: new Date().toISOString(),
+  };
+  // Recompute intelligence fields if relevant fields changed
+  if (updates.title || updates.description || updates.category || updates.severity || updates.priority || updates.state) {
+    const inferred = categorizeIncident(`${merged.title} ${merged.description}`);
+    merged.category = updates.category || merged.category || inferred.category;
+    merged.confidenceScore = inferred.confidence;
+    merged.escalationProbability = predictEscalation(merged);
+  }
+  items[idx] = merged;
+  write(items);
+  return merged;
+}
+
+export function removeIncident(id: string) {
+  const items = read().filter((i) => i.id !== id);
+  write(items);
+}
+
+export function clearAllIncidents() {
+  write([]);
+}
