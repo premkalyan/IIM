@@ -52,38 +52,38 @@ export default function Incidents() {
 
   return (
     <div className="grid gap-6">
-      <div className="flex flex-col justify-between gap-3 md:flex-row md:items-center">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Incidents</h1>
-          <p className="text-muted-foreground">Manage incidents entirely in-browser. No backend required.</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-              <Button onClick={() => setEditing(null)}>
-                <Plus className="mr-2 h-4 w-4" /> New Incident
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>{editing ? "Edit Incident" : "New Incident"}</DialogTitle>
-              </DialogHeader>
-              <IncidentForm
-                initial={editing || undefined}
-                onSubmit={(values) => {
-                  if (editing) {
-                    updateIncident(editing.id, values);
-                  } else {
-                    createIncident(values);
-                  }
-                  setOpen(false);
-                }}
-                onCancel={() => setOpen(false)}
-                submitLabel={editing ? "Update" : "Create"}
-              />
-            </DialogContent>
-          </Dialog>
-        </div>
+      <div>
+        <PageHeader
+          title="Incidents"
+          subtitle="Manage incidents entirely in-browser. No backend required."
+          actions={
+            <Dialog open={open} onOpenChange={setOpen}>
+              <DialogTrigger asChild>
+                <Button onClick={() => setEditing(null)}>
+                  <Plus className="mr-2 h-4 w-4" /> New Incident
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>{editing ? "Edit Incident" : "New Incident"}</DialogTitle>
+                </DialogHeader>
+                <IncidentForm
+                  initial={editing || undefined}
+                  onSubmit={(values) => {
+                    if (editing) {
+                      updateIncident(editing.id, values);
+                    } else {
+                      createIncident(values);
+                    }
+                    setOpen(false);
+                  }}
+                  onCancel={() => setOpen(false)}
+                  submitLabel={editing ? "Update" : "Create"}
+                />
+              </DialogContent>
+            </Dialog>
+          }
+        />
       </div>
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-5">
