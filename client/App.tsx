@@ -25,10 +25,10 @@ const App = () => (
           <Route element={<AppLayout />}>
             <Route index element={<Index />} />
             <Route path="incidents" element={<Incidents />} />
-            <Route path="knowledge" element={<Placeholder title="Knowledge Base" />} />
-            <Route path="playbooks" element={<Placeholder title="Playbooks" />} />
-            <Route path="analytics" element={<Placeholder title="Analytics" />} />
-            <Route path="settings" element={<Placeholder title="Settings" />} />
+            <Route path="knowledge" element={<Knowledge />} />
+            <Route path="playbooks" element={<Playbooks />} />
+            <Route path="analytics" element={<Analytics />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
