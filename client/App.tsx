@@ -29,6 +29,7 @@ const App = () => (
             <Route path="knowledge" element={<Knowledge />} />
             <Route path="playbooks" element={<Playbooks />} />
             <Route path="analytics" element={<Analytics />} />
+            <Route path="architecture" element={<Architecture />} />
             <Route path="settings" element={<Settings />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
