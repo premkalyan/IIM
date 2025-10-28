@@ -16,7 +16,6 @@ export default function Index() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<{ item: Incident; score: number }[]>([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const unsub = subscribe(() => setIncidents(listIncidents()));
