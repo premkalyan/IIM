@@ -10,55 +10,12 @@ export default function Architecture() {
 
       <div className="rounded-lg border bg-card p-6">
         <div className="overflow-auto">
-          <svg viewBox="0 0 1200 360" className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
-            <defs>
-              <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto-start-reverse">
-                <path d="M0,0 L10,5 L0,10 z" fill="var(--primary-foreground)" />
-              </marker>
-            </defs>
-
-            {/* External systems */}
-            <rect x="20" y="40" rx="8" ry="8" width="180" height="80" fill="rgba(217,234,255,0.9)" stroke="hsl(var(--primary))" />
-            <text x="110" y="60" textAnchor="middle" fontSize="14" fontWeight="700" fill="hsl(var(--foreground))">External Systems</text>
-            <text x="110" y="80" textAnchor="middle" fontSize="12" fill="hsl(var(--muted-foreground))">ServiceNow, Confluence, Jira, Logs</text>
-
-            {/* Ingest */}
-            <rect x="240" y="40" rx="8" ry="8" width="170" height="80" fill="rgba(237,247,237,0.95)" stroke="hsl(var(--accent))" />
-            <text x="325" y="60" textAnchor="middle" fontSize="14" fontWeight="700" fill="hsl(var(--foreground))">Ingestion & ETL</text>
-            <text x="325" y="80" textAnchor="middle" fontSize="12" fill="hsl(var(--muted-foreground))">Normalization, attachments, metadata</text>
-
-            {/* Models */}
-            <rect x="460" y="40" rx="8" ry="8" width="200" height="80" fill="rgba(255,245,235,0.95)" stroke="hsl(var(--primary))" />
-            <text x="560" y="60" textAnchor="middle" fontSize="14" fontWeight="700" fill="hsl(var(--foreground))">AI Models</text>
-            <text x="560" y="80" textAnchor="middle" fontSize="12" fill="hsl(var(--muted-foreground))">Categorization, Embeddings, Escalation Prediction</text>
-
-            {/* Knowledge base */}
-            <rect x="700" y="30" rx="8" ry="8" width="200" height="100" fill="rgba(245,251,255,0.95)" stroke="hsl(var(--secondary))" />
-            <text x="800" y="60" textAnchor="middle" fontSize="14" fontWeight="700" fill="hsl(var(--foreground))">Knowledge Base</text>
-            <text x="800" y="80" textAnchor="middle" fontSize="12" fill="hsl(var(--muted-foreground))">Articles, Runbooks, Indexed Embeddings</text>
-
-            {/* Playbooks */}
-            <rect x="960" y="40" rx="8" ry="8" width="180" height="80" fill="rgba(255,247,237,0.95)" stroke="hsl(var(--accent))" />
-            <text x="1050" y="60" textAnchor="middle" fontSize="14" fontWeight="700" fill="hsl(var(--foreground))">Playbooks</text>
-            <text x="1050" y="80" textAnchor="middle" fontSize="12" fill="hsl(var(--muted-foreground))">Generated + Manual</text>
-
-            {/* arrows */}
-            <line x1="200" y1="80" x2="240" y2="80" stroke="hsl(var(--foreground))" strokeWidth="2" markerEnd="url(#arrow)" />
-            <line x1="410" y1="80" x2="460" y2="80" stroke="hsl(var(--foreground))" strokeWidth="2" markerEnd="url(#arrow)" />
-            <line x1="660" y1="80" x2="700" y2="80" stroke="hsl(var(--foreground))" strokeWidth="2" markerEnd="url(#arrow)" />
-            <line x1="900" y1="80" x2="960" y2="80" stroke="hsl(var(--foreground))" strokeWidth="2" markerEnd="url(#arrow)" />
-
-            {/* feedback arrows */}
-            <path d="M820 130 C700 160 560 160 460 120" stroke="hsl(var(--muted-foreground))" fill="none" strokeWidth="2" markerEnd="url(#arrow)" />
-
-            {/* analytics */}
-            <rect x="460" y="160" rx="8" ry="8" width="300" height="80" fill="rgba(245,255,250,0.95)" stroke="hsl(var(--primary))" />
-            <text x="610" y="185" textAnchor="middle" fontSize="14" fontWeight="700" fill="hsl(var(--foreground))">Analytics & Observability</text>
-            <text x="610" y="205" textAnchor="middle" fontSize="12" fill="hsl(var(--muted-foreground))">Dashboards, KPIs, Model Metrics</text>
-
-            <line x1="800" y1="130" x2="800" y2="160" stroke="hsl(var(--foreground))" strokeWidth="2" markerEnd="url(#arrow)" />
-
-          </svg>
+          {/* Mermaid diagram renderer */}
+          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+          {/* @ts-ignore */}
+          <div id="mermaid-root" className="prose">
+            {/* Mermaid renderer will mount here via component below */}
+          </div>
         </div>
 
         <div className="mt-6">
