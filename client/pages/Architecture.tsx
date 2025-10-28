@@ -1,4 +1,55 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import dynamic from "react";
+import MermaidRenderer from "@/components/MermaidRenderer";
+
+const mermaidDiagram = `flowchart LR
+  subgraph EXTERNAL[External Systems]
+    SN[ServiceNow]
+    CF[Confluence / Jira]
+    LOGS[Logs / APM]
+  end
+
+  subgraph INGEST[Ingestion & ETL]
+    NORM[Normalize \nAttachments & Metadata]
+    ATT[Attachments/Files]
+  end
+
+  subgraph MODELS[AI Models]
+    CAT[Categorization]
+    EMB[Embeddings / Similarity]
+    ESC[Escalation Prediction]
+  end
+
+  subgraph KB[Knowledge Base]
+    ART[Articles / Runbooks]
+    INDEX[Indexed Embeddings]
+  end
+
+  subgraph PB[Playbooks]
+    AUTO[Generated Playbooks]
+    MAN[Manual Playbooks]
+  end
+
+  subgraph AN[Analytics]
+    DASH[Dashboards / KPIs]
+    METRICS[Model Metrics]
+  end
+
+  SN -->|tickets| NORM
+  CF -->|documents| NORM
+  LOGS -->|telemetry| NORM
+  NORM --> CAT
+  NORM --> EMB
+  CAT --> KB
+  EMB --> KB
+  KB --> PB
+  CAT --> PB
+  ESC --> PB
+  PB -->|actions| NORM
+  KB --> AN
+  MODELS --> AN
+  NORM --> AN
+`;
 
 export default function Architecture() {
   return (
