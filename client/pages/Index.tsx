@@ -157,7 +157,7 @@ export default function Index() {
             <div className="mt-4 text-sm text-muted-foreground">
               Create incidents, triage with AI, and manage workflows entirely in-browser.
             </div>
-            <Button variant="ghost" className="mt-3" onClick={() => navigate("/incidents")}>Manage Incidents</Button>
+            <Link to="/incidents"><Button variant="ghost" className="mt-3">Manage Incidents</Button></Link>
           </CardContent>
         </Card>
       </div>
