@@ -9,7 +9,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowUpDown, Edit3, Plus, Trash2 } from "lucide-react";
 import { listIncidents, createIncident, updateIncident, removeIncident, subscribe, type Incident } from "@/store/incidents";
-import { predictEscalation } from "@/lib/ai";
 
 export default function Incidents() {
   const [params, setParams] = useSearchParams();
