@@ -70,6 +70,14 @@ export default function Architecture() {
         </div>
 
         <div className="mt-6">
+          <div className="grid gap-4">
+            <MermaidRenderer chart={mermaidDiagram} theme={document.documentElement.classList.contains("dark") ? "dark" : "default"} />
+            <div>
+              <h4 className="font-semibold">Mermaid source</h4>
+              <pre className="rounded-md border bg-muted p-3 overflow-auto text-sm"><code>{mermaidDiagram}</code></pre>
+            </div>
+          </div>
+
           <Tabs defaultValue="overview">
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
