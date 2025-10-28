@@ -16,6 +16,7 @@ export default function AppLayout() {
       { to: "/knowledge", label: "Knowledge" },
       { to: "/playbooks", label: "Playbooks" },
       { to: "/analytics", label: "Analytics" },
+      { to: "/architecture", label: "Architecture" },
       { to: "/settings", label: "Settings" },
     ],
     [],
