@@ -8,6 +8,8 @@ interface Props {
 export default function MermaidRenderer({ chart, theme = "default" }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [svg, setSvg] = useState<string | null>(null);
+  const [pngDataUrl, setPngDataUrl] = useState<string | null>(null);
+  const [showImage, setShowImage] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
