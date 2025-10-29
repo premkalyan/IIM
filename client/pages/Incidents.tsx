@@ -20,6 +20,7 @@ export default function Incidents() {
   const [q, setQ] = useState(params.get("q") || "");
   const [sev, setSev] = useState(params.get("severity") || "All");
   const [cat, setCat] = useState(params.get("category") || "All");
+  const [systemFilter, setSystemFilter] = useState(params.get("system") || "All");
   const [state, setState] = useState(params.get("state") || "All");
   const [sort, setSort] = useState<"updated" | "priority">("updated");
 
