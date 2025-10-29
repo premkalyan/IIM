@@ -12,6 +12,7 @@ export interface Incident {
   severity: Severity;
   category: Category;
   state: State;
+  system?: string; // e.g., Oracle EPM, SAS, Informatica
   assigned_to?: string;
   resolutionNotes?: string;
   confidenceScore: number; // 0-1
