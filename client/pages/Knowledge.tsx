@@ -7,6 +7,7 @@ import { listArticles, createArticle, updateArticle, removeArticle, subscribe, t
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import PageHeader from "@/components/PageHeader";
 
 function ArticleForm({ initial, onSubmit, onCancel }: { initial?: Partial<KnowledgeArticle>; onSubmit: (vals: { title: string; content: string; tags: string[] }) => void; onCancel?: () => void; }) {
   const [title, setTitle] = useState(initial?.title || "");
@@ -61,8 +62,7 @@ export default function Knowledge() {
   return (
     <div className="grid gap-6">
       <div>
-        <h1 className="text-2xl font-semibold">Knowledge Base</h1>
-        <p className="text-muted-foreground">Search and maintain resolution articles and runbooks.</p>
+        <PageHeader title="Knowledge Base" subtitle="Search and maintain resolution articles and runbooks." />
       </div>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-4">
         <Card className="lg:col-span-3">
