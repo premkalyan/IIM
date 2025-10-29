@@ -32,8 +32,7 @@ export default function Analytics() {
   return (
     <div className="grid gap-6">
       <div>
-        <h1 className="text-2xl font-semibold">Analytics</h1>
-        <p className="text-muted-foreground">Quick operational metrics derived from your incidents.</p>
+        <PageHeader title="Analytics" subtitle="Quick operational metrics derived from your incidents." />
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
