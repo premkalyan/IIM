@@ -45,6 +45,7 @@ export default function Incidents() {
       )
       .filter((i) => (sev === "All" ? true : i.severity === sev))
       .filter((i) => (cat === "All" ? true : i.category === cat))
+      .filter((i) => (systemFilter === "All" ? true : (i.system || "Other") === systemFilter))
       .filter((i) => (state === "All" ? true : i.state === state))
       .sort((a, b) => {
         if (sort === "updated") return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
