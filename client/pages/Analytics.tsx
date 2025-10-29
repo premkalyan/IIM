@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { listIncidents } from "@/store/incidents";
+import PageHeader from "@/components/PageHeader";
 
 function Bar({ label, value, max = 100 }: { label: string; value: number; max?: number }) {
   const pct = Math.round((value / Math.max(1, max)) * 100);
