@@ -152,6 +152,7 @@ export default function Incidents() {
             <TableRow>
               <TableHead>Number</TableHead>
               <TableHead>Title</TableHead>
+              <TableHead className="hidden md:table-cell">System</TableHead>
               <TableHead className="hidden md:table-cell">Category</TableHead>
               <TableHead className="hidden sm:table-cell">Priority</TableHead>
               <TableHead>Severity</TableHead>
