@@ -58,8 +58,7 @@ export default function Settings() {
   return (
     <div className="grid gap-6">
       <div>
-        <h1 className="text-2xl font-semibold">Settings</h1>
-        <p className="text-muted-foreground">Application preferences and data management.</p>
+        <PageHeader title="Settings" subtitle="Application preferences and data management." />
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
