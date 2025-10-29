@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -31,6 +32,16 @@ const categories: Category[] = [
   "Other",
 ];
 
+const systems = [
+  "Oracle EPM",
+  "SAS",
+  "Informatica",
+  "OBIEE/OAC",
+  "Hadoop",
+  "Power BI Gateway",
+  "Other",
+];
+
 export default function IncidentForm({ initial, onSubmit, onCancel, submitLabel = "Save" }: Props) {
   const [title, setTitle] = useState(initial?.title || "");
   const [description, setDescription] = useState(initial?.description || "");
@@ -38,6 +49,7 @@ export default function IncidentForm({ initial, onSubmit, onCancel, submitLabel 
   const [severity, setSeverity] = useState<Severity>(initial?.severity || "Medium");
   const [state, setState] = useState<State>(initial?.state || "New");
   const [category, setCategory] = useState<Category>(initial?.category || "Application");
+  const [system, setSystem] = useState(initial?.system || "");
   const [assigned_to, setAssignedTo] = useState(initial?.assigned_to || "");
   const [number, setNumber] = useState(initial?.number || "");
 
@@ -48,6 +60,7 @@ export default function IncidentForm({ initial, onSubmit, onCancel, submitLabel 
     setSeverity(initial?.severity || "Medium");
     setState(initial?.state || "New");
     setCategory(initial?.category || "Application");
+    setSystem(initial?.system || "");
     setAssignedTo(initial?.assigned_to || "");
     setNumber(initial?.number || "");
   }, [initial]);
@@ -57,7 +70,7 @@ export default function IncidentForm({ initial, onSubmit, onCancel, submitLabel 
       className="grid gap-4"
       onSubmit={(e) => {
         e.preventDefault();
-        onSubmit({ title, description, priority, severity, state, category, assigned_to, resolutionNotes: initial?.resolutionNotes || "", number });
+        onSubmit({ title, description, priority, severity, state, category, system, assigned_to, resolutionNotes: initial?.resolutionNotes || "", number });
       }}
     >
       <div className="grid gap-2">
@@ -107,10 +120,21 @@ export default function IncidentForm({ initial, onSubmit, onCancel, submitLabel 
           </Select>
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div className="grid gap-2">
           <label className="text-sm font-medium">Assigned To</label>
           <Input value={assigned_to} onChange={(e) => setAssignedTo(e.target.value)} placeholder="Owner name" />
+        </div>
+        <div className="grid gap-2">
+          <label className="text-sm font-medium">System / Platform</label>
+          <Select value={system} onValueChange={(v) => setSystem(v)}>
+            <SelectTrigger><SelectValue placeholder="Select system" /></SelectTrigger>
+            <SelectContent>
+              {systems.map((s) => (
+                <SelectItem key={s} value={s}>{s}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div className="grid gap-2">
           <label className="text-sm font-medium">Ticket Number (optional)</label>
