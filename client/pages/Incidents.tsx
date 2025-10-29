@@ -171,6 +171,7 @@ export default function Incidents() {
                   <div className="line-clamp-2 font-medium">{i.title}</div>
                   <div className="text-xs text-muted-foreground line-clamp-1">{i.description}</div>
                 </TableCell>
+                <TableCell className="hidden md:table-cell text-sm text-muted-foreground">{i.system || "—"}</TableCell>
                 <TableCell className="hidden md:table-cell"><Badge variant="secondary">{i.category}</Badge></TableCell>
                 <TableCell className="hidden sm:table-cell">P{i.priority}</TableCell>
                 <TableCell>
