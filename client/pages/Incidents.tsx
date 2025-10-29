@@ -87,35 +87,61 @@ export default function Incidents() {
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-5">
-        <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search..." />
-        <Select value={sev} onValueChange={(v) => setSev(v)}>
-          <SelectTrigger><SelectValue placeholder="Severity" /></SelectTrigger>
-          <SelectContent>
-            {["All", "Low", "Medium", "High", "Critical"].map((s) => (
-              <SelectItem key={s} value={s}>{s}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Select value={cat} onValueChange={(v) => setCat(v)}>
-          <SelectTrigger><SelectValue placeholder="Category" /></SelectTrigger>
-          <SelectContent>
-            {["All", "Application", "Network", "Database", "Security", "Access", "Infrastructure", "Other"].map((c) => (
-              <SelectItem key={c} value={c}>{c}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Select value={state} onValueChange={(v) => setState(v)}>
-          <SelectTrigger><SelectValue placeholder="State" /></SelectTrigger>
-          <SelectContent>
-            {["All", "New", "In Progress", "Resolved", "Closed"].map((s) => (
-              <SelectItem key={s} value={s}>{s}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Button variant="outline" onClick={() => setSort(sort === "updated" ? "priority" : "updated")}>
-          <ArrowUpDown className="mr-2 h-4 w-4" /> Sort: {sort === "updated" ? "Updated" : "Priority"}
-        </Button>
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-6">
+        <div className="grid gap-1">
+          <label className="text-xs text-muted-foreground">Search</label>
+          <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search incidents, numbers, titles..." />
+        </div>
+        <div className="grid gap-1">
+          <label className="text-xs text-muted-foreground">Severity</label>
+          <Select value={sev} onValueChange={(v) => setSev(v)}>
+            <SelectTrigger><SelectValue placeholder="All severities" /></SelectTrigger>
+            <SelectContent>
+              {["All", "Low", "Medium", "High", "Critical"].map((s) => (
+                <SelectItem key={s} value={s}>{s}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="grid gap-1">
+          <label className="text-xs text-muted-foreground">Category</label>
+          <Select value={cat} onValueChange={(v) => setCat(v)}>
+            <SelectTrigger><SelectValue placeholder="All categories" /></SelectTrigger>
+            <SelectContent>
+              {["All", "Application", "Network", "Database", "Security", "Access", "Infrastructure", "Other"].map((c) => (
+                <SelectItem key={c} value={c}>{c}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="grid gap-1">
+          <label className="text-xs text-muted-foreground">System</label>
+          <Select value={"All"} onValueChange={(v) => { /* placeholder for future system filter */ }}>
+            <SelectTrigger><SelectValue placeholder="All systems" /></SelectTrigger>
+            <SelectContent>
+              {["All","Oracle EPM","SAS","Informatica","OBIEE/OAC","Hadoop","Power BI Gateway","Other"].map((s) => (
+                <SelectItem key={s} value={s}>{s}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="grid gap-1">
+          <label className="text-xs text-muted-foreground">State</label>
+          <Select value={state} onValueChange={(v) => setState(v)}>
+            <SelectTrigger><SelectValue placeholder="All states" /></SelectTrigger>
+            <SelectContent>
+              {["All", "New", "In Progress", "Resolved", "Closed"].map((s) => (
+                <SelectItem key={s} value={s}>{s}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="grid gap-1">
+          <label className="text-xs text-muted-foreground">Sort</label>
+          <Button variant="outline" onClick={() => setSort(sort === "updated" ? "priority" : "updated")}>
+            <ArrowUpDown className="mr-2 h-4 w-4" /> {sort === "updated" ? "Updated" : "Priority"}
+          </Button>
+        </div>
       </div>
 
       <div className="rounded-lg border bg-card">
