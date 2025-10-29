@@ -6,6 +6,7 @@ import { listPlaybooks, createFromIncident, createPlaybook, removePlaybook, subs
 import { listIncidents, type Incident } from "@/store/incidents";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import PageHeader from "@/components/PageHeader";
 
 export default function Playbooks() {
   const [playbooks, setPlaybooks] = useState<Playbook[]>(listPlaybooks());
@@ -18,8 +19,7 @@ export default function Playbooks() {
   return (
     <div className="grid gap-6">
       <div>
-        <h1 className="text-2xl font-semibold">Playbooks</h1>
-        <p className="text-muted-foreground">Manage automated resolution playbooks generated from incidents and best practices.</p>
+        <PageHeader title="Playbooks" subtitle="Manage automated resolution playbooks generated from incidents and best practices." />
       </div>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2">
