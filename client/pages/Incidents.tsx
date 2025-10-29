@@ -118,7 +118,7 @@ export default function Incidents() {
         </div>
         <div className="grid gap-1">
           <label className="text-xs text-muted-foreground">System</label>
-          <Select value={"All"} onValueChange={(v) => { /* placeholder for future system filter */ }}>
+          <Select value={systemFilter} onValueChange={(v) => setSystemFilter(v)}>
             <SelectTrigger><SelectValue placeholder="All systems" /></SelectTrigger>
             <SelectContent>
               {["All","Oracle EPM","SAS","Informatica","OBIEE/OAC","Hadoop","Power BI Gateway","Other"].map((s) => (
