@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import PageHeader from "@/components/PageHeader";
 
 const keys = {
   incidents: "hanover_incidents_v1",
