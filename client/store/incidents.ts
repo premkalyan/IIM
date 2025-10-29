@@ -171,7 +171,7 @@ function seedIfEmpty() {
       description: "Post-ETL datasets have inconsistent row counts and schema mismatches.",
       priority: 3,
       severity: "Medium",
-      category: "Data",
+      category: "Database",
       state: "New",
       system: "SAS",
       assigned_to: "Data Team",
