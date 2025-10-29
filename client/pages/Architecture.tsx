@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import MermaidRenderer from "@/components/MermaidRenderer";
+import PageHeader from "@/components/PageHeader";
 
 const mermaidDiagram = `flowchart LR
   subgraph EXTERNAL[External Systems]
