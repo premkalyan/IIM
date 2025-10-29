@@ -78,8 +78,7 @@ export default function Architecture() {
   return (
     <div className="grid gap-6">
       <div>
-        <h1 className="text-2xl font-semibold">Architecture & Data Flow</h1>
-        <p className="text-muted-foreground">Overview of integration points, data ingestion, AI models, knowledge base, playbooks, and analytics.</p>
+        <PageHeader title="Architecture & Data Flow" subtitle="Overview of integration points, data ingestion, AI models, knowledge base, playbooks, and analytics." />
       </div>
 
       <div className="rounded-lg border bg-card p-6">
