@@ -102,7 +102,7 @@ export default function Settings() {
             <CardTitle>About</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-sm text-muted-foreground">Hanover IIM POC · Built with privacy-first in-browser data stores. No backend required.</div>
+            <div className="text-sm text-muted-foreground">Blutic IIM POC · Built with privacy-first in-browser data stores. No backend required.</div>
           </CardContent>
         </Card>
       </div>
