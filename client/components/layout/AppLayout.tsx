@@ -30,11 +30,17 @@ export default function AppLayout() {
             <div className="flex items-center gap-3">
               <Link to="/" className="flex items-center gap-2">
                 <div className="h-10 w-10 rounded-md bg-primary/10 ring-1 ring-primary/30 flex items-center justify-center overflow-hidden">
-                  <img src="https://cdn.builder.io/api/v1/image/assets%2F5b3d188902484b47b43387f7b5229340%2F6b3f01c81eed4a4894a5565301c90ba2?format=webp&width=800" alt="Blutic" className="h-full w-full object-contain" />
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2F5b3d188902484b47b43387f7b5229340%2F6b3f01c81eed4a4894a5565301c90ba2?format=webp&width=800"
+                    alt="Blutic"
+                    className="h-full w-full object-contain"
+                  />
                 </div>
                 <div className="leading-tight">
                   <div className="font-semibold text-lg">Blutic IIM</div>
-                  <div className="text-xs text-muted-foreground">Intelligent Incident Management</div>
+                  <div className="text-xs text-muted-foreground">
+                    Intelligent Incident Management
+                  </div>
                 </div>
               </Link>
               <nav className="hidden md:flex md:flex-nowrap md:overflow-x-auto md:whitespace-nowrap ml-4">
@@ -61,7 +67,9 @@ export default function AppLayout() {
 
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-5 w-5" />
-                <span className="absolute -right-1 -top-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[10px] text-destructive-foreground">3</span>
+                <span className="absolute -right-1 -top-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[10px] text-destructive-foreground">
+                  3
+                </span>
               </Button>
             </div>
           </div>
@@ -69,7 +77,11 @@ export default function AppLayout() {
           <div className="mt-3 flex items-center justify-between gap-4">
             <div className="flex-1">
               {!isHome && (
-                <form action="/incidents" onSubmit={(e) => e.preventDefault()} className="w-full">
+                <form
+                  action="/incidents"
+                  onSubmit={(e) => e.preventDefault()}
+                  className="w-full"
+                >
                   <div className="relative">
                     <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
@@ -93,7 +105,8 @@ export default function AppLayout() {
       </main>
       <footer className="border-t bg-background/50">
         <div className="mx-auto max-w-7xl px-4 py-6 text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Blutic IIM POC · Built for enterprise workflows
+          © {new Date().getFullYear()} Blutic IIM POC · Built for enterprise
+          workflows
         </div>
       </footer>
     </div>

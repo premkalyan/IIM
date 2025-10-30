@@ -223,11 +223,13 @@ export default function Incidents() {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>State</SelectLabel>
-                {["All", "New", "In Progress", "Resolved", "Closed"].map((s) => (
-                  <SelectItem key={s} value={s}>
-                    {s}
-                  </SelectItem>
-                ))}
+                {["All", "New", "In Progress", "Resolved", "Closed"].map(
+                  (s) => (
+                    <SelectItem key={s} value={s}>
+                      {s}
+                    </SelectItem>
+                  ),
+                )}
               </SelectGroup>
             </SelectContent>
           </Select>
