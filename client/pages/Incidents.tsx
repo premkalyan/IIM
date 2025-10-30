@@ -85,7 +85,7 @@ export default function Incidents() {
           );
         return a.priority - b.priority;
       });
-  }, [items, q, sev, cat, state, sort]);
+  }, [items, q, sev, cat, systemFilter, state, sort]);
 
   return (
     <div className="grid gap-6">
