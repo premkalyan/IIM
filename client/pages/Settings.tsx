@@ -42,7 +42,7 @@ export default function Settings() {
       playbooks: localStorage.getItem(keys.playbooks) || "[]",
       exportedAt: new Date().toISOString(),
     };
-    downloadJSON("hanover_export.json", payload);
+    downloadJSON("blutic_export.json", payload);
   };
 
   const importFile = async (file?: File) => {
