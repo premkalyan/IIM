@@ -6,9 +6,9 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import PageHeader from "@/components/PageHeader";
 
 const keys = {
-  incidents: "hanover_incidents_v1",
-  knowledge: "hanover_knowledge_v1",
-  playbooks: "hanover_playbooks_v1",
+  incidents: "blutic_incidents_v1",
+  knowledge: "blutic_knowledge_v1",
+  playbooks: "blutic_playbooks_v1",
 };
 
 function downloadJSON(filename: string, data: any) {
