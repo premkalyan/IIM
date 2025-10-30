@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { addSampleIncidents } from "@/store/incidents";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import PageHeader from "@/components/PageHeader";
@@ -85,6 +87,7 @@ export default function Settings() {
           <CardContent>
             <div className="grid gap-3">
               <Button onClick={exportAll}>Export data</Button>
+              <Button onClick={() => { addSampleIncidents(); toast({ title: "Sample incidents added", description: "Added system-specific sample incidents (Oracle EPM, SAS, Informatica, OBIEE/OAC, Hadoop, Power BI Gateway)." }); }}>Add sample incidents</Button>
               <div className="flex items-center gap-2">
                 <input id="import" type="file" accept="application/json" onChange={(e) => importFile(e.target.files?.[0])} />
               </div>
