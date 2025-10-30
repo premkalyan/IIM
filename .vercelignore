@@ -1,0 +1,11 @@
+node_modules
+.git
+.env.local
+.env.*.local
+server
+netlify
+dist/server
+.builder
+*.log
+.DS_Store
+
