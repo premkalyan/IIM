@@ -88,6 +88,8 @@ export default function Incidents() {
         />
       </div>
 
+      <div className="text-sm text-muted-foreground mb-2">Filters: Use the dropdowns to narrow results by Severity, Category, System, and State.</div>
+
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-6">
         <div className="grid gap-1">
           <label className="text-xs text-muted-foreground">Search</label>
