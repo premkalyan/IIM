@@ -12,7 +12,9 @@ const keys = {
 };
 
 function downloadJSON(filename: string, data: any) {
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const blob = new Blob([JSON.stringify(data, null, 2)], {
+    type: "application/json",
+  });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -23,7 +25,9 @@ function downloadJSON(filename: string, data: any) {
 
 export default function Settings() {
   const { toast } = useToast();
-  const [theme, setTheme] = useState(document.documentElement.classList.contains("dark") ? "dark" : "light");
+  const [theme, setTheme] = useState(
+    document.documentElement.classList.contains("dark") ? "dark" : "light",
+  );
 
   const toggleTheme = () => {
     if (document.documentElement.classList.contains("dark")) {
@@ -50,9 +54,27 @@ export default function Settings() {
     try {
       const txt = await file.text();
       const parsed = JSON.parse(txt);
-      if (parsed.incidents) localStorage.setItem(keys.incidents, typeof parsed.incidents === "string" ? parsed.incidents : JSON.stringify(parsed.incidents));
-      if (parsed.knowledge) localStorage.setItem(keys.knowledge, typeof parsed.knowledge === "string" ? parsed.knowledge : JSON.stringify(parsed.knowledge));
-      if (parsed.playbooks) localStorage.setItem(keys.playbooks, typeof parsed.playbooks === "string" ? parsed.playbooks : JSON.stringify(parsed.playbooks));
+      if (parsed.incidents)
+        localStorage.setItem(
+          keys.incidents,
+          typeof parsed.incidents === "string"
+            ? parsed.incidents
+            : JSON.stringify(parsed.incidents),
+        );
+      if (parsed.knowledge)
+        localStorage.setItem(
+          keys.knowledge,
+          typeof parsed.knowledge === "string"
+            ? parsed.knowledge
+            : JSON.stringify(parsed.knowledge),
+        );
+      if (parsed.playbooks)
+        localStorage.setItem(
+          keys.playbooks,
+          typeof parsed.playbooks === "string"
+            ? parsed.playbooks
+            : JSON.stringify(parsed.playbooks),
+        );
       window.location.reload();
     } catch (err) {
       alert("Failed to import file: " + String(err));
@@ -62,7 +84,10 @@ export default function Settings() {
   return (
     <div className="grid gap-6">
       <div>
-        <PageHeader title="Settings" subtitle="Application preferences and data management." />
+        <PageHeader
+          title="Settings"
+          subtitle="Application preferences and data management."
+        />
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
@@ -74,9 +99,13 @@ export default function Settings() {
             <div className="flex items-center justify-between">
               <div>
                 <div className="font-medium">Theme</div>
-                <div className="text-sm text-muted-foreground">Choose Light or Dark mode</div>
+                <div className="text-sm text-muted-foreground">
+                  Choose Light or Dark mode
+                </div>
               </div>
-              <Button onClick={toggleTheme}>{theme === "dark" ? "Switch to Light" : "Switch to Dark"}</Button>
+              <Button onClick={toggleTheme}>
+                {theme === "dark" ? "Switch to Light" : "Switch to Dark"}
+              </Button>
             </div>
           </CardContent>
         </Card>
@@ -88,11 +117,43 @@ export default function Settings() {
           <CardContent>
             <div className="grid gap-3">
               <Button onClick={exportAll}>Export data</Button>
-              <Button onClick={() => { addSampleIncidents(); toast({ title: "Sample incidents added", description: "Added system-specific sample incidents (Oracle EPM, SAS, Informatica, OBIEE/OAC, Hadoop, Power BI Gateway)." }); }}>Add sample incidents</Button>
+              <Button
+                onClick={() => {
+                  addSampleIncidents();
+                  toast({
+                    title: "Sample incidents added",
+                    description:
+                      "Added system-specific sample incidents (Oracle EPM, SAS, Informatica, OBIEE/OAC, Hadoop, Power BI Gateway).",
+                  });
+                }}
+              >
+                Add sample incidents
+              </Button>
               <div className="flex items-center gap-2">
-                <input id="import" type="file" accept="application/json" onChange={(e) => importFile(e.target.files?.[0])} />
+                <input
+                  id="import"
+                  type="file"
+                  accept="application/json"
+                  onChange={(e) => importFile(e.target.files?.[0])}
+                />
               </div>
-              <Button variant="destructive" onClick={() => { if (confirm("Clear all incidents, knowledge and playbooks? This cannot be undone.")) { localStorage.removeItem(keys.incidents); localStorage.removeItem(keys.knowledge); localStorage.removeItem(keys.playbooks); window.location.reload(); } }}>Clear all data</Button>
+              <Button
+                variant="destructive"
+                onClick={() => {
+                  if (
+                    confirm(
+                      "Clear all incidents, knowledge and playbooks? This cannot be undone.",
+                    )
+                  ) {
+                    localStorage.removeItem(keys.incidents);
+                    localStorage.removeItem(keys.knowledge);
+                    localStorage.removeItem(keys.playbooks);
+                    window.location.reload();
+                  }
+                }}
+              >
+                Clear all data
+              </Button>
             </div>
           </CardContent>
         </Card>
@@ -102,7 +163,10 @@ export default function Settings() {
             <CardTitle>About</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-sm text-muted-foreground">Blutic IIM POC · Built with privacy-first in-browser data stores. No backend required.</div>
+            <div className="text-sm text-muted-foreground">
+              Blutic IIM POC · Built with privacy-first in-browser data stores.
+              No backend required.
+            </div>
           </CardContent>
         </Card>
       </div>

@@ -5,9 +5,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import IncidentForm from "@/components/incidents/IncidentForm";
-import { listIncidents, createIncident, subscribe, type Incident } from "@/store/incidents";
+import {
+  listIncidents,
+  createIncident,
+  subscribe,
+  type Incident,
+} from "@/store/incidents";
 import { similaritySearch, generatePlaybook } from "@/lib/ai";
 import { Lightbulb, ListPlus, ArrowRight } from "lucide-react";
 
@@ -15,29 +26,52 @@ export default function Index() {
   const [incidents, setIncidents] = useState<Incident[]>(listIncidents());
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<{ item: Incident; score: number }[]>([]);
+  const [results, setResults] = useState<{ item: Incident; score: number }[]>(
+    [],
+  );
 
   useEffect(() => {
     const unsub = subscribe(() => setIncidents(listIncidents()));
     return unsub;
   }, []);
 
-  const openCount = useMemo(() => incidents.filter((i) => i.state === "New" || i.state === "In Progress").length, [incidents]);
-  const highRisk = useMemo(() => incidents.filter((i) => i.escalationProbability > 0.7).length, [incidents]);
+  const openCount = useMemo(
+    () =>
+      incidents.filter((i) => i.state === "New" || i.state === "In Progress")
+        .length,
+    [incidents],
+  );
+  const highRisk = useMemo(
+    () => incidents.filter((i) => i.escalationProbability > 0.7).length,
+    [incidents],
+  );
   const avgResolution = useMemo(() => {
-    const resolved = incidents.filter((i) => i.state === "Resolved" || i.state === "Closed");
+    const resolved = incidents.filter(
+      (i) => i.state === "Resolved" || i.state === "Closed",
+    );
     if (!resolved.length) return "—";
-    const hrs = resolved
-      .map((i) => (new Date(i.updatedAt).getTime() - new Date(i.createdAt).getTime()) / 36e5)
-      .reduce((a, b) => a + b, 0) / resolved.length;
+    const hrs =
+      resolved
+        .map(
+          (i) =>
+            (new Date(i.updatedAt).getTime() -
+              new Date(i.createdAt).getTime()) /
+            36e5,
+        )
+        .reduce((a, b) => a + b, 0) / resolved.length;
     return `${hrs.toFixed(1)}h`;
   }, [incidents]);
 
   return (
     <div className="grid gap-6">
       <div className="grid gap-2">
-        <h1 className="text-3xl font-semibold tracking-tight">Blutic Intelligent Incident Management</h1>
-        <p className="text-muted-foreground">AI-assisted incident triage, knowledge retrieval, and predictive escalation. All in your browser.</p>
+        <h1 className="text-3xl font-semibold tracking-tight">
+          Blutic Intelligent Incident Management
+        </h1>
+        <p className="text-muted-foreground">
+          AI-assisted incident triage, knowledge retrieval, and predictive
+          escalation. All in your browser.
+        </p>
       </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -47,7 +81,9 @@ export default function Index() {
           </CardHeader>
           <CardContent>
             <div className="text-4xl font-bold">{openCount}</div>
-            <p className="text-xs text-muted-foreground">Across applications and platforms</p>
+            <p className="text-xs text-muted-foreground">
+              Across applications and platforms
+            </p>
           </CardContent>
         </Card>
         <Card>
@@ -56,7 +92,9 @@ export default function Index() {
           </CardHeader>
           <CardContent>
             <div className="text-4xl font-bold">{highRisk}</div>
-            <p className="text-xs text-muted-foreground">Probability &gt; 70%</p>
+            <p className="text-xs text-muted-foreground">
+              Probability &gt; 70%
+            </p>
           </CardContent>
         </Card>
         <Card>
@@ -65,7 +103,9 @@ export default function Index() {
           </CardHeader>
           <CardContent>
             <div className="text-4xl font-bold">{avgResolution}</div>
-            <p className="text-xs text-muted-foreground">Last {incidents.length} incidents</p>
+            <p className="text-xs text-muted-foreground">
+              Last {incidents.length} incidents
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -73,7 +113,10 @@ export default function Index() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Lightbulb className="h-5 w-5 text-primary" /> Intelligent Knowledge Retrieval</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <Lightbulb className="h-5 w-5 text-primary" /> Intelligent
+              Knowledge Retrieval
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <form
@@ -84,7 +127,11 @@ export default function Index() {
                 setResults(res);
               }}
             >
-              <Textarea value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Describe the incident. We'll surface similar past cases and solutions." />
+              <Textarea
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Describe the incident. We'll surface similar past cases and solutions."
+              />
               <div className="flex items-center gap-2">
                 <Button type="submit">Search</Button>
                 <Button variant="ghost" asChild>
@@ -103,14 +150,20 @@ export default function Index() {
                         <div className="flex items-center gap-2">
                           <span className="font-medium">{item.number}</span>
                           <Badge variant="secondary">{item.category}</Badge>
-                          <span className="text-xs text-muted-foreground">Match {Math.round(score * 100)}%</span>
+                          <span className="text-xs text-muted-foreground">
+                            Match {Math.round(score * 100)}%
+                          </span>
                         </div>
                         <div className="mt-1 font-medium">{item.title}</div>
-                        <div className="text-sm text-muted-foreground line-clamp-2">{item.description}</div>
+                        <div className="text-sm text-muted-foreground line-clamp-2">
+                          {item.description}
+                        </div>
                       </div>
                       <Dialog>
                         <DialogTrigger asChild>
-                          <Button variant="outline" size="sm">Generate Playbook</Button>
+                          <Button variant="outline" size="sm">
+                            Generate Playbook
+                          </Button>
                         </DialogTrigger>
                         <DialogContent>
                           <DialogHeader>
@@ -132,7 +185,9 @@ export default function Index() {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><ListPlus className="h-5 w-5 text-primary" /> Quick Create</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <ListPlus className="h-5 w-5 text-primary" /> Quick Create
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <Dialog open={open} onOpenChange={setOpen}>
@@ -154,9 +209,14 @@ export default function Index() {
               </DialogContent>
             </Dialog>
             <div className="mt-4 text-sm text-muted-foreground">
-              Create incidents, triage with AI, and manage workflows entirely in-browser.
+              Create incidents, triage with AI, and manage workflows entirely
+              in-browser.
             </div>
-            <Link to="/incidents"><Button variant="ghost" className="mt-3">Manage Incidents</Button></Link>
+            <Link to="/incidents">
+              <Button variant="ghost" className="mt-3">
+                Manage Incidents
+              </Button>
+            </Link>
           </CardContent>
         </Card>
       </div>

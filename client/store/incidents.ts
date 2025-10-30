@@ -70,7 +70,8 @@ function seedIfEmpty() {
     {
       number: "INC-1002",
       title: "Intermittent DB deadlocks in Policy service",
-      description: "Deadlocks observed during peak hours, customer impact reported.",
+      description:
+        "Deadlocks observed during peak hours, customer impact reported.",
       priority: 1,
       severity: "Critical",
       category: "Database",
@@ -102,7 +103,8 @@ function seedIfEmpty() {
     {
       number: "INC-1004",
       title: "SAML SSO login failures for underwriting portal",
-      description: "Multiple users unable to login; IdP status shows partial outage",
+      description:
+        "Multiple users unable to login; IdP status shows partial outage",
       priority: 2,
       severity: "High",
       category: "Access",
@@ -120,8 +122,9 @@ function seedIfEmpty() {
     {
       number: "INC-2001",
       title: "Oracle EPM: Data load failures in consolidation job",
-      description: "Scheduled consolidation failing with ORA-XXXXX and job aborts."
-      ,priority: 1,
+      description:
+        "Scheduled consolidation failing with ORA-XXXXX and job aborts.",
+      priority: 1,
       severity: "High",
       category: "Database",
       state: "New",
@@ -136,7 +139,8 @@ function seedIfEmpty() {
     {
       number: "INC-2002",
       title: "Oracle EPM: Calculation manager errors on rule execution",
-      description: "Calculation job fails with memory errors during peak processing.",
+      description:
+        "Calculation job fails with memory errors during peak processing.",
       priority: 2,
       severity: "Medium",
       category: "Application",
@@ -152,7 +156,8 @@ function seedIfEmpty() {
     {
       number: "INC-3001",
       title: "SAS: Job scheduling failures due to license exhaustion",
-      description: "SAS jobs failing; license pool exhausted during batch window.",
+      description:
+        "SAS jobs failing; license pool exhausted during batch window.",
       priority: 2,
       severity: "High",
       category: "Application",
@@ -168,7 +173,8 @@ function seedIfEmpty() {
     {
       number: "INC-3002",
       title: "SAS: Corrupt data sets after ETL",
-      description: "Post-ETL datasets have inconsistent row counts and schema mismatches.",
+      description:
+        "Post-ETL datasets have inconsistent row counts and schema mismatches.",
       priority: 3,
       severity: "Medium",
       category: "Database",
@@ -184,7 +190,8 @@ function seedIfEmpty() {
     {
       number: "INC-4001",
       title: "Informatica PowerCenter: Repository connection errors",
-      description: "Integration services unable to connect to repository; users impacted.",
+      description:
+        "Integration services unable to connect to repository; users impacted.",
       priority: 2,
       severity: "High",
       category: "Infrastructure",
@@ -200,7 +207,8 @@ function seedIfEmpty() {
     {
       number: "INC-4002",
       title: "Informatica: Slow session performance during peak loads",
-      description: "ETL sessions experiencing high memory and CPU, causing delays.",
+      description:
+        "ETL sessions experiencing high memory and CPU, causing delays.",
       priority: 3,
       severity: "Medium",
       category: "Infrastructure",
@@ -216,7 +224,8 @@ function seedIfEmpty() {
     {
       number: "INC-5001",
       title: "OBIEE: Dashboards failing to render (OBIEE/OAC)",
-      description: "Dashboard queries return errors; ODBC connections timing out.",
+      description:
+        "Dashboard queries return errors; ODBC connections timing out.",
       priority: 2,
       severity: "High",
       category: "Application",
@@ -248,7 +257,8 @@ function seedIfEmpty() {
     {
       number: "INC-7001",
       title: "Power BI Gateway: Scheduled refresh failures",
-      description: "Gateway unable to refresh datasets; OAuth token errors in logs.",
+      description:
+        "Gateway unable to refresh datasets; OAuth token errors in logs.",
       priority: 2,
       severity: "High",
       category: "Infrastructure",
@@ -293,13 +303,25 @@ export function getIncident(id: string): Incident | undefined {
   return read().find((i) => i.id === id);
 }
 
-export function createIncident(partial: Omit<Incident, "id" | "number" | "confidenceScore" | "escalationProbability" | "createdAt" | "updatedAt"> & { number?: string }): Incident {
+export function createIncident(
+  partial: Omit<
+    Incident,
+    | "id"
+    | "number"
+    | "confidenceScore"
+    | "escalationProbability"
+    | "createdAt"
+    | "updatedAt"
+  > & { number?: string },
+): Incident {
   const items = read();
   const number =
     partial.number || `INC-${1000 + Math.floor(Math.random() * 9000)}`;
   const ts = new Date().toISOString();
   const id = crypto.randomUUID();
-  const inferred = categorizeIncident(`${partial.title} ${partial.description}`);
+  const inferred = categorizeIncident(
+    `${partial.title} ${partial.description}`,
+  );
   const base = {
     id,
     number,
@@ -338,8 +360,17 @@ export function updateIncident(
     updatedAt: new Date().toISOString(),
   };
   // Recompute intelligence fields if relevant fields changed
-  if (updates.title || updates.description || updates.category || updates.severity || updates.priority || updates.state) {
-    const inferred = categorizeIncident(`${merged.title} ${merged.description}`);
+  if (
+    updates.title ||
+    updates.description ||
+    updates.category ||
+    updates.severity ||
+    updates.priority ||
+    updates.state
+  ) {
+    const inferred = categorizeIncident(
+      `${merged.title} ${merged.description}`,
+    );
     merged.category = updates.category || merged.category || inferred.category;
     merged.confidenceScore = inferred.confidence;
     merged.escalationProbability = predictEscalation(merged);
@@ -365,7 +396,8 @@ export function addSampleIncidents() {
     {
       number: `INC-${2000 + Math.floor(Math.random() * 9000)}`,
       title: "Oracle EPM: Data load failures in consolidation job",
-      description: "Scheduled consolidation failing with ORA-XXXXX and job aborts.",
+      description:
+        "Scheduled consolidation failing with ORA-XXXXX and job aborts.",
       priority: 1,
       severity: "High",
       category: "Database",
@@ -381,7 +413,8 @@ export function addSampleIncidents() {
     {
       number: `INC-${2000 + Math.floor(Math.random() * 9000)}`,
       title: "Oracle EPM: Calculation manager errors on rule execution",
-      description: "Calculation job fails with memory errors during peak processing.",
+      description:
+        "Calculation job fails with memory errors during peak processing.",
       priority: 2,
       severity: "Medium",
       category: "Application",
@@ -398,7 +431,8 @@ export function addSampleIncidents() {
     {
       number: `INC-${3000 + Math.floor(Math.random() * 9000)}`,
       title: "SAS: Job scheduling failures due to license exhaustion",
-      description: "SAS jobs failing; license pool exhausted during batch window.",
+      description:
+        "SAS jobs failing; license pool exhausted during batch window.",
       priority: 2,
       severity: "High",
       category: "Application",
@@ -414,7 +448,8 @@ export function addSampleIncidents() {
     {
       number: `INC-${3000 + Math.floor(Math.random() * 9000)}`,
       title: "SAS: Corrupt data sets after ETL",
-      description: "Post-ETL datasets have inconsistent row counts and schema mismatches.",
+      description:
+        "Post-ETL datasets have inconsistent row counts and schema mismatches.",
       priority: 3,
       severity: "Medium",
       category: "Database",
@@ -431,7 +466,8 @@ export function addSampleIncidents() {
     {
       number: `INC-${4000 + Math.floor(Math.random() * 9000)}`,
       title: "Informatica: Repository connection errors",
-      description: "Integration services unable to connect to repository; users impacted.",
+      description:
+        "Integration services unable to connect to repository; users impacted.",
       priority: 2,
       severity: "High",
       category: "Infrastructure",
@@ -447,7 +483,8 @@ export function addSampleIncidents() {
     {
       number: `INC-${4000 + Math.floor(Math.random() * 9000)}`,
       title: "Informatica: Slow session performance during peak loads",
-      description: "ETL sessions experiencing high memory and CPU, causing delays.",
+      description:
+        "ETL sessions experiencing high memory and CPU, causing delays.",
       priority: 3,
       severity: "Medium",
       category: "Infrastructure",
@@ -464,7 +501,8 @@ export function addSampleIncidents() {
     {
       number: `INC-${5000 + Math.floor(Math.random() * 9000)}`,
       title: "OBIEE: Dashboards failing to render (OBIEE/OAC)",
-      description: "Dashboard queries return errors; ODBC connections timing out.",
+      description:
+        "Dashboard queries return errors; ODBC connections timing out.",
       priority: 2,
       severity: "High",
       category: "Application",
@@ -498,7 +536,8 @@ export function addSampleIncidents() {
     {
       number: `INC-${7000 + Math.floor(Math.random() * 9000)}`,
       title: "Power BI Gateway: Scheduled refresh failures",
-      description: "Gateway unable to refresh datasets; OAuth token errors in logs.",
+      description:
+        "Gateway unable to refresh datasets; OAuth token errors in logs.",
       priority: 2,
       severity: "High",
       category: "Infrastructure",

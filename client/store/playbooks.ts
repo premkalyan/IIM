@@ -57,22 +57,36 @@ function seedIfEmpty() {
 seedIfEmpty();
 
 export function listPlaybooks() {
-  return read().sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+  return read().sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+  );
 }
 
 export function getPlaybook(id: string) {
   return read().find((p) => p.id === id);
 }
 
-export function createPlaybook(partial: Omit<Playbook, "id" | "createdAt" | "updatedAt">) {
+export function createPlaybook(
+  partial: Omit<Playbook, "id" | "createdAt" | "updatedAt">,
+) {
   const items = read();
   const ts = new Date().toISOString();
-  const pb: Playbook = { ...partial, id: crypto.randomUUID(), createdAt: ts, updatedAt: ts };
+  const pb: Playbook = {
+    ...partial,
+    id: crypto.randomUUID(),
+    createdAt: ts,
+    updatedAt: ts,
+  };
   write([pb, ...items]);
   return pb;
 }
 
-export function createFromIncident(incident: { title: string; description: string; category?: string; severity?: string }) {
+export function createFromIncident(incident: {
+  title: string;
+  description: string;
+  category?: string;
+  severity?: string;
+}) {
   const steps = generatePlaybook({
     id: crypto.randomUUID(),
     title: incident.title,
@@ -84,14 +98,25 @@ export function createFromIncident(incident: { title: string; description: strin
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   } as any);
-  return createPlaybook({ title: `Playbook for: ${incident.title}`, incidentId: null, steps });
+  return createPlaybook({
+    title: `Playbook for: ${incident.title}`,
+    incidentId: null,
+    steps,
+  });
 }
 
-export function updatePlaybook(id: string, updates: Partial<Omit<Playbook, "id" | "createdAt">>) {
+export function updatePlaybook(
+  id: string,
+  updates: Partial<Omit<Playbook, "id" | "createdAt">>,
+) {
   const items = read();
   const idx = items.findIndex((i) => i.id === id);
   if (idx === -1) return undefined;
-  const merged = { ...items[idx], ...updates, updatedAt: new Date().toISOString() };
+  const merged = {
+    ...items[idx],
+    ...updates,
+    updatedAt: new Date().toISOString(),
+  };
   items[idx] = merged;
   write(items);
   return merged;

@@ -115,26 +115,42 @@ function seedIfEmpty() {
 seedIfEmpty();
 
 export function listArticles() {
-  return read().sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+  return read().sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+  );
 }
 
 export function getArticle(id: string) {
   return read().find((a) => a.id === id);
 }
 
-export function createArticle(partial: Omit<KnowledgeArticle, "id" | "createdAt" | "updatedAt">) {
+export function createArticle(
+  partial: Omit<KnowledgeArticle, "id" | "createdAt" | "updatedAt">,
+) {
   const items = read();
   const ts = new Date().toISOString();
-  const a: KnowledgeArticle = { ...partial, id: crypto.randomUUID(), createdAt: ts, updatedAt: ts };
+  const a: KnowledgeArticle = {
+    ...partial,
+    id: crypto.randomUUID(),
+    createdAt: ts,
+    updatedAt: ts,
+  };
   write([a, ...items]);
   return a;
 }
 
-export function updateArticle(id: string, updates: Partial<Omit<KnowledgeArticle, "id" | "createdAt">>) {
+export function updateArticle(
+  id: string,
+  updates: Partial<Omit<KnowledgeArticle, "id" | "createdAt">>,
+) {
   const items = read();
   const idx = items.findIndex((i) => i.id === id);
   if (idx === -1) return undefined;
-  const merged = { ...items[idx], ...updates, updatedAt: new Date().toISOString() };
+  const merged = {
+    ...items[idx],
+    ...updates,
+    updatedAt: new Date().toISOString(),
+  };
   items[idx] = merged;
   write(items);
   return merged;

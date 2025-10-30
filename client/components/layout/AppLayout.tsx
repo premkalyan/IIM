@@ -28,11 +28,17 @@ export default function AppLayout() {
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3">
           <Link to="/" className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-md bg-primary/10 ring-1 ring-primary/30 flex items-center justify-center overflow-hidden">
-              <img src="https://cdn.builder.io/api/v1/image/assets%2F5b3d188902484b47b43387f7b5229340%2F6b3f01c81eed4a4894a5565301c90ba2?format=webp&width=800" alt="Blutic" className="h-full w-full object-contain" />
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2F5b3d188902484b47b43387f7b5229340%2F6b3f01c81eed4a4894a5565301c90ba2?format=webp&width=800"
+                alt="Blutic"
+                className="h-full w-full object-contain"
+              />
             </div>
             <div className="leading-tight">
               <div className="font-semibold">Blutic IIM</div>
-              <div className="text-xs text-muted-foreground">Intelligent Incident Management</div>
+              <div className="text-xs text-muted-foreground">
+                Intelligent Incident Management
+              </div>
             </div>
           </Link>
           <nav className="ml-6 hidden items-center gap-3 md:flex">
@@ -50,7 +56,11 @@ export default function AppLayout() {
           </nav>
           <div className="ml-auto flex items-center gap-2">
             {!isHome && (
-              <form action="/incidents" onSubmit={(e) => e.preventDefault()} className="hidden md:block">
+              <form
+                action="/incidents"
+                onSubmit={(e) => e.preventDefault()}
+                className="hidden md:block"
+              >
                 <div className="relative">
                   <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -69,7 +79,9 @@ export default function AppLayout() {
             </Button>
             <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-5 w-5" />
-              <span className="absolute -right-1 -top-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[10px] text-destructive-foreground">3</span>
+              <span className="absolute -right-1 -top-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[10px] text-destructive-foreground">
+                3
+              </span>
             </Button>
           </div>
         </div>
@@ -79,7 +91,8 @@ export default function AppLayout() {
       </main>
       <footer className="border-t bg-background/50">
         <div className="mx-auto max-w-7xl px-4 py-6 text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Blutic IIM POC · Built for enterprise workflows
+          © {new Date().getFullYear()} Blutic IIM POC · Built for enterprise
+          workflows
         </div>
       </footer>
     </div>
