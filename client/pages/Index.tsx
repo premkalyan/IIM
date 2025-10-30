@@ -36,7 +36,7 @@ export default function Index() {
   return (
     <div className="grid gap-6">
       <div className="grid gap-2">
-        <h1 className="text-3xl font-semibold tracking-tight">Hanover Intelligent Incident Management</h1>
+        <h1 className="text-3xl font-semibold tracking-tight">Blutic Intelligent Incident Management</h1>
         <p className="text-muted-foreground">AI-assisted incident triage, knowledge retrieval, and predictive escalation. All in your browser.</p>
       </div>
 
