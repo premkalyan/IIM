@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/table";
 import {
   Select,
+  SelectGroup,
   SelectContent,
   SelectItem,
   SelectLabel,
