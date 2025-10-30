@@ -35,7 +35,7 @@ export default function AppLayout() {
               <div className="text-xs text-muted-foreground">Intelligent Incident Management</div>
             </div>
           </Link>
-          <nav className="ml-6 hidden items-center gap-3 md:flex">
+          <nav className="ml-6 hidden items-center gap-3 md:flex md:flex-nowrap md:overflow-x-auto md:whitespace-nowrap">
             {nav.map((n) => (
               <NavLink
                 key={n.to}
