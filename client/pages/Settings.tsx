@@ -22,6 +22,7 @@ function downloadJSON(filename: string, data: any) {
 }
 
 export default function Settings() {
+  const { toast } = useToast();
   const [theme, setTheme] = useState(document.documentElement.classList.contains("dark") ? "dark" : "light");
 
   const toggleTheme = () => {
