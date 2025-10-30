@@ -37,8 +37,10 @@ function expressPlugin(): Plugin {
   return {
     name: "express-plugin",
     async configureServer(server) {
-      // Dynamically import server only when this plugin is actually used
-      const { createServer } = await import("./server/index.js");
+      // Use eval to prevent esbuild from statically analyzing the import
+      // This ensures the server module is only loaded at runtime in dev mode
+      const serverPath = "./server/index.js";
+      const { createServer } = await eval(`import("${serverPath}")`);
       const app = createServer();
 
       // Add Express app as middleware to Vite dev server
