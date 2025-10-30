@@ -7,7 +7,7 @@ export interface KnowledgeArticle {
   updatedAt: string;
 }
 
-const STORAGE_KEY = "hanover_knowledge_v1";
+const STORAGE_KEY = "blutic_knowledge_v1";
 const listeners = new Set<() => void>();
 const emit = () => listeners.forEach((l) => l());
 export const subscribe = (fn: () => void) => {
