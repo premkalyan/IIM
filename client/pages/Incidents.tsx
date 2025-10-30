@@ -100,6 +100,7 @@ export default function Incidents() {
           <Select value={sev} onValueChange={(v) => setSev(v)}>
             <SelectTrigger><SelectValue placeholder="All severities" /></SelectTrigger>
             <SelectContent>
+              <SelectLabel>Severity</SelectLabel>
               {["All", "Low", "Medium", "High", "Critical"].map((s) => (
                 <SelectItem key={s} value={s}>{s}</SelectItem>
               ))}
@@ -111,6 +112,7 @@ export default function Incidents() {
           <Select value={cat} onValueChange={(v) => setCat(v)}>
             <SelectTrigger><SelectValue placeholder="All categories" /></SelectTrigger>
             <SelectContent>
+              <SelectLabel>Category</SelectLabel>
               {["All", "Application", "Network", "Database", "Security", "Access", "Infrastructure", "Other"].map((c) => (
                 <SelectItem key={c} value={c}>{c}</SelectItem>
               ))}
@@ -122,6 +124,7 @@ export default function Incidents() {
           <Select value={systemFilter} onValueChange={(v) => setSystemFilter(v)}>
             <SelectTrigger><SelectValue placeholder="All systems" /></SelectTrigger>
             <SelectContent>
+              <SelectLabel>System</SelectLabel>
               {["All","Oracle EPM","SAS","Informatica","OBIEE/OAC","Hadoop","Power BI Gateway","Other"].map((s) => (
                 <SelectItem key={s} value={s}>{s}</SelectItem>
               ))}
@@ -133,6 +136,7 @@ export default function Incidents() {
           <Select value={state} onValueChange={(v) => setState(v)}>
             <SelectTrigger><SelectValue placeholder="All states" /></SelectTrigger>
             <SelectContent>
+              <SelectLabel>State</SelectLabel>
               {["All", "New", "In Progress", "Resolved", "Closed"].map((s) => (
                 <SelectItem key={s} value={s}>{s}</SelectItem>
               ))}
