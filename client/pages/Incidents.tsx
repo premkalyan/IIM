@@ -164,21 +164,23 @@ export default function Incidents() {
               <SelectValue placeholder="All categories" />
             </SelectTrigger>
             <SelectContent>
-              <SelectLabel>Category</SelectLabel>
-              {[
-                "All",
-                "Application",
-                "Network",
-                "Database",
-                "Security",
-                "Access",
-                "Infrastructure",
-                "Other",
-              ].map((c) => (
-                <SelectItem key={c} value={c}>
-                  {c}
-                </SelectItem>
-              ))}
+              <SelectGroup>
+                <SelectLabel>Category</SelectLabel>
+                {[
+                  "All",
+                  "Application",
+                  "Network",
+                  "Database",
+                  "Security",
+                  "Access",
+                  "Infrastructure",
+                  "Other",
+                ].map((c) => (
+                  <SelectItem key={c} value={c}>
+                    {c}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
             </SelectContent>
           </Select>
         </div>
