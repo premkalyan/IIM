@@ -146,12 +146,14 @@ export default function Incidents() {
               <SelectValue placeholder="All severities" />
             </SelectTrigger>
             <SelectContent>
-              <SelectLabel>Severity</SelectLabel>
-              {["All", "Low", "Medium", "High", "Critical"].map((s) => (
-                <SelectItem key={s} value={s}>
-                  {s}
-                </SelectItem>
-              ))}
+              <SelectGroup>
+                <SelectLabel>Severity</SelectLabel>
+                {["All", "Low", "Medium", "High", "Critical"].map((s) => (
+                  <SelectItem key={s} value={s}>
+                    {s}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
             </SelectContent>
           </Select>
         </div>
