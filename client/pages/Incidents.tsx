@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import IncidentForm from "@/components/incidents/IncidentForm";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowUpDown, Edit3, Plus, Trash2 } from "lucide-react";
 import { listIncidents, createIncident, updateIncident, removeIncident, subscribe, type Incident } from "@/store/incidents";
 import PageHeader from "@/components/PageHeader";
