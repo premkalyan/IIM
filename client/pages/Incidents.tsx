@@ -194,21 +194,23 @@ export default function Incidents() {
               <SelectValue placeholder="All systems" />
             </SelectTrigger>
             <SelectContent>
-              <SelectLabel>System</SelectLabel>
-              {[
-                "All",
-                "Oracle EPM",
-                "SAS",
-                "Informatica",
-                "OBIEE/OAC",
-                "Hadoop",
-                "Power BI Gateway",
-                "Other",
-              ].map((s) => (
-                <SelectItem key={s} value={s}>
-                  {s}
-                </SelectItem>
-              ))}
+              <SelectGroup>
+                <SelectLabel>System</SelectLabel>
+                {[
+                  "All",
+                  "Oracle EPM",
+                  "SAS",
+                  "Informatica",
+                  "OBIEE/OAC",
+                  "Hadoop",
+                  "Power BI Gateway",
+                  "Other",
+                ].map((s) => (
+                  <SelectItem key={s} value={s}>
+                    {s}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
             </SelectContent>
           </Select>
         </div>
