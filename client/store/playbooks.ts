@@ -9,7 +9,7 @@ export interface Playbook {
   updatedAt: string;
 }
 
-const STORAGE_KEY = "hanover_playbooks_v1";
+const STORAGE_KEY = "blutic_playbooks_v1";
 const listeners = new Set<() => void>();
 const emit = () => listeners.forEach((l) => l());
 export const subscribe = (fn: () => void) => {
