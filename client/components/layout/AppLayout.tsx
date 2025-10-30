@@ -79,7 +79,7 @@ export default function AppLayout() {
       </main>
       <footer className="border-t bg-background/50">
         <div className="mx-auto max-w-7xl px-4 py-6 text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Hanover IIM POC · Built for enterprise workflows
+          © {new Date().getFullYear()} Blutic IIM POC · Built for enterprise workflows
         </div>
       </footer>
     </div>
