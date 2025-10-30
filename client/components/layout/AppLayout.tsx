@@ -28,7 +28,7 @@ export default function AppLayout() {
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3">
           <Link to="/" className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-md bg-primary/10 ring-1 ring-primary/30 flex items-center justify-center">
-              <span className="text-primary font-black">H</span>
+              <span className="text-primary font-black">B</span>
             </div>
             <div className="leading-tight">
               <div className="font-semibold">Hanover IIM</div>
