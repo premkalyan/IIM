@@ -31,7 +31,7 @@ export default function AppLayout() {
               <span className="text-primary font-black">B</span>
             </div>
             <div className="leading-tight">
-              <div className="font-semibold">Hanover IIM</div>
+              <div className="font-semibold">Blutic IIM</div>
               <div className="text-xs text-muted-foreground">Intelligent Incident Management</div>
             </div>
           </Link>
