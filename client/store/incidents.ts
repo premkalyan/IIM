@@ -21,7 +21,7 @@ export interface Incident {
   updatedAt: string;
 }
 
-const STORAGE_KEY = "hanover_incidents_v1";
+const STORAGE_KEY = "blutic_incidents_v1";
 
 const listeners = new Set<() => void>();
 const emit = () => listeners.forEach((l) => l());
